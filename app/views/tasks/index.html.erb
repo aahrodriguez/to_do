@@ -1,0 +1,10 @@
+<% @tasks.each do |task| %>
+  <%= task.content %>
+  <%= task.priority %>
+  <%= link_to "Edit",edit_task_path(task) %>
+  <%= link_to "Delete",task_path(task), method: :delete %>
+  <br>
+<% end %>
+<br>
+<br>
+<%= link_to "New",new_task_path %>
