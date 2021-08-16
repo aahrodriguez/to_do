@@ -1,3 +1,44 @@
+<% unless @tasks.exists? %>
+  <div class="d-flex justify-content-between"">
+    <div>
+    </div>
+    <div>
+    <%= link_to "Add Task",new_task_path, class: "btn btn-primary mb-1" %>
+
+    </div>
+  </div>
+  <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <%= image_tag "1.jpg", class: "d-block w-100 h-50"  %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag "2.jpg", class: "d-block w-100"  %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag "3.jpg", class: "d-block w-100"  %>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<% end %>
+
+
+
+
+
 <% @tasks.each do |task| %>
   <%= task.content %>
   <%= "High" if task.priority == 3 %>
@@ -9,4 +50,4 @@
 <% end %>
 <br>
 <br>
-<%= link_to "New",new_task_path %>
+<%= link_to "Add Task",new_task_path, class: "btn btn-primary mb-1" %>
