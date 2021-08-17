@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :destroy, :toggle]
 
   def index
-    unless params[:q]
+    unless params[:q] || params[:search]
       @tasks = Task.all
     else
       if params[:q] == "high"
@@ -13,6 +13,8 @@ class TasksController < ApplicationController
         @tasks = Task.all.order(created_at: :asc)
       elsif params[:q] == "recent"
         @tasks = Task.all.order(created_at: :desc)
+      elsif params[:search][:i]
+        @tasks = Task.all.where content: params[:search][:i]
       end
     end
   end
@@ -32,7 +34,6 @@ class TasksController < ApplicationController
       @task.priority = 1
     end
     if @task.save
-      flash[:notice] = "Task created successfully"
       redirect_to tasks_path
     else
       flash[:alert] = "Something wrong"
@@ -47,7 +48,6 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(set_params)
-      flash[:notice] = "Task created successfully"
       redirect_to tasks_path
     else
       flash[:alert] = "Something wrong"
@@ -57,7 +57,6 @@ class TasksController < ApplicationController
 
   def destroy
     @task.delete
-    flash[:notice] = "Task deleted"
     redirect_to tasks_path
   end
 
