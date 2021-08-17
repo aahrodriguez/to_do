@@ -32,7 +32,6 @@ class TasksController < ApplicationController
       @task.priority = 1
     end
     if @task.save
-      flash[:notice] = "Task created successfully"
       redirect_to tasks_path
     else
       flash[:alert] = "Something wrong"
@@ -47,7 +46,6 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(set_params)
-      flash[:notice] = "Task created successfully"
       redirect_to tasks_path
     else
       flash[:alert] = "Something wrong"
@@ -57,7 +55,6 @@ class TasksController < ApplicationController
 
   def destroy
     @task.delete
-    flash[:notice] = "Task deleted"
     redirect_to tasks_path
   end
 
