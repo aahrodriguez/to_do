@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :destroy, :toggle]
 
   def index
-    unless params[:q]
+    unless params[:q] || params[:search]
       @tasks = Task.all
     else
       if params[:q] == "high"
@@ -13,6 +13,8 @@ class TasksController < ApplicationController
         @tasks = Task.all.order(created_at: :asc)
       elsif params[:q] == "recent"
         @tasks = Task.all.order(created_at: :desc)
+      elsif params[:search][:i]
+        @tasks = Task.all.where content: params[:search][:i]
       end
     end
   end
