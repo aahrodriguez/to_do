@@ -1,5 +1,5 @@
 <%= simple_form_for (@task) do |f| %>
   <%= f.input :content %>
-  <%= f.input :priority, :collection => ["Low", "Normal", "High" ], selected: "Low" %>
+  <%= f.input :priority, :collection => [["Low", 1], ["Normal",2], ["High", 3] ] %>
   <%= f.submit %>
 <% end %>

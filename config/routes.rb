@@ -2,5 +2,6 @@ Rails.application.routes.draw do
   root "tasks#index"
   resources :tasks, except: :show
   devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  patch "toggle/:id", to: "tasks#toggle", as: :toggle
+  delete "all", to: "tasks#tasks_delete", as: :tasks_to_delete
 end

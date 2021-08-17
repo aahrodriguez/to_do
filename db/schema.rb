@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_16_001209) do
+ActiveRecord::Schema.define(version: 2021_08_16_231445) do
 
   create_table "tasks", force: :cascade do |t|
     t.integer "priority"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_08_16_001209) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "content"
     t.integer "user_id", null: false
+    t.boolean "done", default: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 

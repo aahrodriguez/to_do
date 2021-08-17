@@ -3,51 +3,87 @@
     <div>
     </div>
     <div>
-    <%= link_to "Add Task",new_task_path, class: "btn btn-primary mb-1" %>
+      <%= link_to "Add Task",new_task_path, class: "btn btn-primary mb-1" %>
 
     </div>
   </div>
-  <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <%= image_tag "1.jpg", class: "d-block w-100 h-75"  %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "2.jpg", class: "d-block w-100 h-75"  %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "3.jpg", class: "d-block w-100 h-75"  %>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <%= image_tag "1.jpg", class: "d-block w-100 h-50"  %>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag "2.jpg", class: "d-block w-100"  %>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag "3.jpg", class: "d-block w-100"  %>
+<% else %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">check</th>
+        <th scope="col">#</th>
+        <th scope="col">Task</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each_with_index do |task, i| %>
+      <tr>
+        <th scope="row">
+          <%= link_to "Done", toggle_path(task), class: "btn btn-success btn-sm", method: :patch  %>
+        </th>
+        <td><%= i + 1 %></td>
+        <% if task.done%>
+          <td><s><%= task.content %></s></td>
+        <% else %>
+          <td><%= task.content %></td>
+        <% end %>
+        <td>
+          <% if task.priority == 3 %>
+            <span class="bg-danger text-white">
+              <%="High"%>
+            </span>
+          <% elsif task.priority == 2 %>
+            <span class="bg-warning text-white">
+              <%="Normal"%>
+            </span>
+          <% elsif task.priority == 1 %>
+            <span class="bg-success text-white">
+              <%="Low"%>
+            </span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "",edit_task_path(task), class:"fas fa-pencil-alt" %>
+          <%= link_to "",task_path(task), method: :delete, class:"far fa-trash-alt ml-2" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between">
+    <div></div>
+    <div>
+      <%= link_to "Delete all",tasks_to_delete_path, class: "btn btn-danger mb-1", method: :delete %>
+      <%= link_to "Add Task",new_task_path, class: "btn btn-primary mb-1" %>
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
 <% end %>
-
-
-
-
-
-<% @tasks.each do |task| %>
-  <%= task.content %>
-  <%= "High" if task.priority == 3 %>
-  <%= "Normal" if task.priority == 2 %>
-  <%= "Low" if task.priority == 1 %>
-  <%= link_to "Edit",edit_task_path(task) %>
-  <%= link_to "Delete",task_path(task), method: :delete %>
-  <br>
-<% end %>
-<br>
-<br>
-<%= link_to "Add Task",new_task_path, class: "btn btn-primary mb-1" %>
