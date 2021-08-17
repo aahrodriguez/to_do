@@ -1,17 +1,17 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:edit, :update, :destroy]
+  before_action :set_task, only: [:edit, :update, :destroy, :toggle]
 
   def index
     unless params[:q]
       @tasks = Task.all
     else
-      if params[:q] = "high"
+      if params[:q] == "high"
         @tasks = Task.all.order(priority: :desc)
-      elsif params[:q] = "low"
+      elsif params[:q] == "low"
         @tasks = Task.all.order(priority: :asc)
-      elsif params[:q] = "older"
+      elsif params[:q] == "older"
         @tasks = Task.all.order(created_at: :asc)
-      elsif params[:q] = "recent"
+      elsif params[:q] == "recent"
         @tasks = Task.all.order(created_at: :desc)
       end
     end
@@ -58,6 +58,17 @@ class TasksController < ApplicationController
   def destroy
     @task.delete
     flash[:notice] = "Task deleted"
+    redirect_to tasks_path
+  end
+
+  def toggle
+    value = @task.done
+    @task.update(done: !value)
+    redirect_to tasks_path
+  end
+
+  def tasks_delete
+    Task.destroy_all
     redirect_to tasks_path
   end
 
