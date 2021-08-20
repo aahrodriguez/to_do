@@ -28,7 +28,7 @@
       </ul>
 
       <%= simple_form_for :search, url: tasks_path, method: "GET", html: { class: 'form-inline my-2 my-lg-0' } do |f| %>
-        <%= f.input :i, input_html: {value: ""}, class: "form-control mr-sm-2", label:false, placeholder: "Search" %>
+        <%= f.input :i, input_html: {value: params[:search] ? params[:search][:i] : ""}, class: "form-control mr-sm-2", label:false, placeholder: "Search" %>
         <%= f.submit "Search", class: "btn btn-outline-success my-2 my-sm-0 ml-1" %>
       <% end %>
     </div>
