@@ -48,7 +48,7 @@
       <% @tasks.each_with_index do |task, i| %>
       <tr>
         <th scope="row">
-          <%= link_to "Done", toggle_path(task), class: "btn btn-success btn-sm", method: :patch  %>
+          <%= link_to !task.done ? "Mark as done" : "Unmark as done", toggle_path(task), class: "btn #{!task.done ? 'btn-success' : 'btn-danger'} btn-sm", method: :patch, id:"done"  %>
         </th>
         <td><%= i + 1 %></td>
         <% if task.done%>
